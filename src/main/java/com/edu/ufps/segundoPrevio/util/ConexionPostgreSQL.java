@@ -8,11 +8,11 @@ import java.sql.SQLException;
 
 public class ConexionPostgreSQL {
 
-	private static final String url = "jdbc:postgresql://localhost:5432/";
-	private static final String dbName="prueba";
+	private static final String url = "jdbc:postgresql://queenie.db.elephantsql.com:5432/";
+	private static final String dbName="mnjgxshj";
 	private static final String driver= "org.postgresql.Driver";
-	private static final String user= "postgres";
-	private static final String pass= "hola123";
+	private static final String user= "mnjgxshj";
+	private static final String pass= "Uzjqo00sxV0W9OzPEB1q3wpoVvGMbbUV";
 	
 	private Connection gestor;	
 	

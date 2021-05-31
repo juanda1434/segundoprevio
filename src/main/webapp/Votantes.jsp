@@ -43,22 +43,22 @@
                                 </c:if>
                             </h2>
                         </caption>
-						<c:if test="${estamentos != null}">
+						<c:if test="${estamentos != null and user==null}">
 						<div class="form-group"> 
 						<label for="estamentos">Estamento</label>
 						<select name="estamento" class="form-control" id="estamentos">
                             <c:forEach var="esta" items="${estamentos }">
-                             <option value="${esta.id}">${esta.descripcion }</option>
+                             <option value="${esta.id}" ${esta.id==user.eleccion.estamentos[0].id?'Selected':'' }>${esta.descripcion }</option>
                             </c:forEach>
                             </select>
   </div>
                         </c:if>
                         <c:if test="${tipos != null}">
 						<div class="form-group"> 
-						<label for="estamentos">Tipo documento</label>
-						<select name="tipo" class="form-control" id="estamentos">
+						<label for="tipos">Tipo documento</label>
+						<select name="tipo" class="form-control" id="tipos">
                             <c:forEach var="tipo" items="${tipos }">
-                             <option value="${tipo.id}">${tipo.descripcion }</option>
+                             <option value="${tipo.id}" ${tipo.id==user.tipoDocumento.id?'Selected':'' }>${tipo.descripcion }</option>
                             </c:forEach>
                             </select>
   </div>
@@ -78,12 +78,12 @@
                             <label>Email</label> <input type="text" value="<c:out value='${user.email}' />" class="form-control" name="email">
                         </fieldset>
 
-<c:if test="${estamentos != null}">
+<c:if test="${estamentos != null and user==null}">
 						<div class="form-group"> 
-						<label for="estamentos">Estamento</label>
-						<select name="eleccion" class="form-control" id="estamentos">
+						<label for="proceso">Estamento</label>
+						<select name="eleccion" class="form-control" id="proceso">
                             <c:forEach var="esta" items="${estamentos }">
-                             <option value="${esta.eleccion.id}">${esta.eleccion.nombre }</option>
+                             <option value="${esta.eleccion.id}" ${esta.eleccion.id==user.eleccion.id?'Selected':'' }>${esta.eleccion.nombre }</option>
                             </c:forEach>
                             </select>
   </div>

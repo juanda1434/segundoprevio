@@ -59,16 +59,16 @@ String path = request.getServletPath();
 			insertar(request, response);
 			break;
 		case "/borrar":
-			//eliminar(request,response);
+			eliminar(request,response);
 			break;
 		case "/edicion":
 			mostrarFormularioEdicion(request, response);
 			break;
 		case "/editar":
-			//editar(request,response);
+			editar(request,response);
 			break;
 		case "/lista":
-			//listar(request, response);
+			listar(request, response);
 			break;
 
 		default:
@@ -91,7 +91,10 @@ String path = request.getServletPath();
 			throws ServletException, IOException {
 		Votante votante = new Votante(Integer.parseInt(request.getParameter("id")));
 		Votante usuarioActual = votanteDAO.listarVotante(votante);
-		
+		List<Estamento>estamentos=estamentoDAO.listarTodo();
+		List<TipoDocumento>tipos=tipoDocumentoDAO.listarTodo();
+		request.setAttribute("estamentos", estamentos);
+		request.setAttribute("tipos", tipos);
 		request.setAttribute("user", usuarioActual);
 		request.getRequestDispatcher("Votantes.jsp").forward(request, response);
 		}
@@ -105,39 +108,36 @@ String path = request.getServletPath();
 		String documento = request.getParameter("documento");
 		int idTipo= Integer.parseInt(request.getParameter("tipo"));
 		int idEleccion= Integer.parseInt(request.getParameter("eleccion"));
-		Votante votante = new Votante(nombre,email,documento,idTipo,idEleccion);
+		int idEstamento=Integer.parseInt(request.getParameter("estamento"));
+		
+		Votante votante = new Votante(nombre,email,documento,idTipo,idEleccion,"uuid","enlace",idEstamento);
 		votanteDAO.insertar(votante);
 		response.sendRedirect("listar");
 		}
 	
-	/*protected void mostrarFormulario(HttpServletRequest request,HttpServletResponse response)
-			throws ServletException, IOException {
-		request.getRequestDispatcher("usuario.jsp").forward(request, response);
-		}
-	
-	
-	
-	
-	protected void editar(HttpServletRequest request,HttpServletResponse response)
-			throws ServletException, IOException {
-		String nombre = request.getParameter("nombre");
-		String email = request.getParameter("email");
-		String pais = request.getParameter("pais");
-		Integer id = Integer.parseInt(request.getParameter("id"));
-		Usuario usuarioDTO = new Usuario(id,nombre, email, pais);
-		usuarioDAO.edit(usuarioDTO);
-		response.sendRedirect("listar");
-		}
 	protected void eliminar(HttpServletRequest request,HttpServletResponse response)
 			throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
-		Usuario usuarioDTO = new Usuario(id);
-		usuarioDAO.delete(usuarioDTO);
+		Votante votante = new Votante(id);
+		votanteDAO.eliminar(votante);
 		response.sendRedirect("listar");
 		}
 	
+	protected void editar(HttpServletRequest request,HttpServletResponse response)
+			throws ServletException, IOException {
+		int id=Integer.parseInt(request.getParameter("id"));
+		String nombre = request.getParameter("nombre");
+		String email = request.getParameter("email");
+		String documento = request.getParameter("documento");
+		int idTipo= Integer.parseInt(request.getParameter("tipo"));
+		//int idEleccion= Integer.parseInt(request.getParameter("eleccion"));
+		//int idEstamento=Integer.parseInt(request.getParameter("estamento"));
+		
+		Votante votante = new Votante(id,nombre,email,documento,idTipo);
+		votanteDAO.editar(votante);
+		response.sendRedirect("listar");
+		}
 	
-	*/
 	protected void listar(HttpServletRequest request,HttpServletResponse response)
 			throws ServletException, IOException {
 				List<Votante> votante= votanteDAO.listarTodo();
