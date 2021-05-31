@@ -65,13 +65,13 @@
                                         <c:out value="${user.email}" />
                                     </td>
                                     <td>
-                                        <c:out value="${user.tipoDocumento.nombre}" />
+                                        <c:out value="${user.tipoDocumento.descripcion}" />
                                     </td>
                                     <td>
                                         <c:out value="${user.documento}" />                                        
                                     </td>
                                     <td>
-                                        <c:out value="${user.estamento.nombre}" />
+                                       <c:forEach var="estamento" items="${user.eleccion.estamentos}"> <c:out value="${estamento.descripcion}" /></c:forEach>
                                     </td>
                                     <td>
                                         <c:out value="${user.eleccion.nombre}" />

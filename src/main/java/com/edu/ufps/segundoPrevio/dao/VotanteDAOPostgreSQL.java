@@ -13,7 +13,7 @@ import com.edu.ufps.segundoPrevio.util.ConexionPostgreSQL;
 
 public class VotanteDAOPostgreSQL implements IVotanteDAO{
 
-	public static final String LISTAR_ALL = "SELECT v.id,v.nombre,v.email,v.documento,td.descripcion,e.nombre, extract(year from fechainicio),extract(year from fechafin),es.descripcion from votante v inner join tipodocumento tp on tp.id=v.tipodocumento inner join eleccion e on e.id=v.eleccion inner join estamento es on es.eleccion = e.id ";
+	public static final String LISTAR_ALL = "SELECT v.id,v.nombre,v.email,v.documento,tp.descripcion,e.nombre, extract(year from fechainicio),extract(year from fechafin),es.descripcion from votante v inner join tipodocumento tp on tp.id=v.tipodocumento inner join eleccion e on e.id=v.eleccion inner join estamento es on es.eleccion = e.id";
 	
 	private ConexionPostgreSQL conexion; 
 	
@@ -41,7 +41,7 @@ public class VotanteDAOPostgreSQL implements IVotanteDAO{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+		System.out.println(usuarios.size());
 		return usuarios;
 		
 		

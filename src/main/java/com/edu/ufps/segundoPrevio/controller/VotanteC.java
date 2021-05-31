@@ -117,7 +117,7 @@ String path = request.getServletPath();
 	protected void listar(HttpServletRequest request,HttpServletResponse response)
 			throws ServletException, IOException {
 				List<Votante> votante= votanteDAO.listarTodo();
-				request.setAttribute("listaVotante", votante);
+				request.setAttribute("listaVotantes", votante);
 		request.getRequestDispatcher("listarVotantes.jsp").forward(request, response);
 	}
 	/**
