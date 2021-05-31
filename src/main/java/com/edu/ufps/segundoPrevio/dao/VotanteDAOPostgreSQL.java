@@ -15,6 +15,13 @@ public class VotanteDAOPostgreSQL implements IVotanteDAO{
 
 	public static final String LISTAR_ALL = "SELECT v.id,v.nombre,v.email,v.documento,tp.descripcion,e.nombre, extract(year from fechainicio),extract(year from fechafin),es.descripcion from votante v inner join tipodocumento tp on tp.id=v.tipodocumento inner join eleccion e on e.id=v.eleccion inner join estamento es on es.eleccion = e.id";
 	
+	public static final String INSERT_VOTANTE = "INSERT INTO votante (nombre,email,documento,tipodocumento,eleccion) values(?,?,?,?,?)";
+	
+	public static final String DELETE_VOTANTE="DELETE FROM votante where id=?";
+	
+	public static final String DELETE_VOTO = "DELETE FROM voto where votante=?";
+	
+	
 	private ConexionPostgreSQL conexion; 
 	
 	

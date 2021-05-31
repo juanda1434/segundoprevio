@@ -28,4 +28,8 @@ public class Eleccion implements Serializable{
 		
 	}
 	
+	public Eleccion (int id, String nombre) {
+		this.id=id;
+		this.nombre=nombre;
+	}
 }
