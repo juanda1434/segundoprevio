@@ -41,16 +41,18 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Name</th>
+                                <th>Id</th>
+                                <th>Nombre</th>
                                 <th>Email</th>
-                                <th>Country</th>
-                                <th>Actions</th>
+                                <th>Tipo Documento</th>
+                                <th>Documento</th>
+                                <th>Estatamento</th>
+                                <th>Proceso</th>
                             </tr>
                         </thead>
                         <tbody>
                             <!--   for (Todo todo: todos) {  -->
-                            <c:forEach var="user" items="${listaUsuarios}">
+                            <c:forEach var="user" items="${listaVotantes}">
 
                                 <tr>
                                     <td>
@@ -63,7 +65,16 @@
                                         <c:out value="${user.email}" />
                                     </td>
                                     <td>
-                                        <c:out value="${user.pais}" />
+                                        <c:out value="${user.tipoDocumento.nombre}" />
+                                    </td>
+                                    <td>
+                                        <c:out value="${user.documento}" />                                        
+                                    </td>
+                                    <td>
+                                        <c:out value="${user.estamento.nombre}" />
+                                    </td>
+                                    <td>
+                                        <c:out value="${user.eleccion.nombre}" />
                                     </td>
                                     <td><a href="edicion?id=<c:out value='${user.id}' />">Edit</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="borrar?id=<c:out value='${user.id}' />">Delete</a></td>
                                 </tr>

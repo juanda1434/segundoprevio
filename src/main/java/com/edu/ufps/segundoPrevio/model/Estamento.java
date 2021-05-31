@@ -5,13 +5,16 @@ import java.io.Serializable;
 import lombok.Data;
 
 @Data
-public class TipoDocumento implements Serializable{
+public class Estamento implements Serializable {
 
-	
-	private Integer id;
+	private int id;
+	private Eleccion eleccion;
 	private String descripcion;
 	
-	public TipoDocumento(String descripcion) {
+	
+	public Estamento(String descripcion) {
 		this.descripcion=descripcion;
 	}
+	
+	
 }

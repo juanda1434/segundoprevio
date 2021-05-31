@@ -6,7 +6,7 @@ public interface IVotanteDAO {
 
 	
 	public void insertar(Votante votante);
-	public List<Votante> listar();
+	public List<Votante> listarTodo();
 	public void eliminar(Votante votante);
 	public void editar(Votante votante);
 	

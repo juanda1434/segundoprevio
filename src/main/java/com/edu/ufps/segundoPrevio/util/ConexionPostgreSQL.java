@@ -31,7 +31,10 @@ public class ConexionPostgreSQL {
 	}
 	
 	public static ConexionPostgreSQL getSingletonConexion() {
-		return singletonConexion == null ? singletonConexion=new ConexionPostgreSQL(): singletonConexion;
+		if(singletonConexion==null) {
+			singletonConexion=new ConexionPostgreSQL();
+		}
+		return singletonConexion ;
 	}
 	
 	

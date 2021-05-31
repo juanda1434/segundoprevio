@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.edu.ufps.segundoPrevio.daoo.factory.IDAOFactory;
 import com.edu.ufps.segundoPrevio.idao.IVotanteDAO;
+import com.edu.ufps.segundoPrevio.model.Votante;
 
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
@@ -14,16 +15,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Votante
+ * Servlet implementation class VotanteC
  */
 @WebServlet("/")
-public class Votante extends HttpServlet {
+public class VotanteC extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * Default constructor. 
      */
-    public Votante() {
+    public VotanteC() {
        
     }
 
@@ -43,22 +44,22 @@ String path = request.getServletPath();
 		
 		switch (path) {
 		case "/nuevo":
-			mostrarFormulario(request, response);
+			//mostrarFormulario(request, response);
 			break;
 		case "/insertar":
-			insertar(request, response);
+			//insertar(request, response);
 			break;
 		case "/borrar":
-			eliminar(request,response);
+			//eliminar(request,response);
 			break;
 		case "/edicion":
-			mostrarFormularioEdicion(request, response);
+			//mostrarFormularioEdicion(request, response);
 			break;
 		case "/editar":
-			editar(request,response);
+			//editar(request,response);
 			break;
 		case "/lista":
-			listar(request, response);
+			//listar(request, response);
 			break;
 
 		default:
@@ -67,7 +68,7 @@ String path = request.getServletPath();
 		}
 	}
 
-	protected void mostrarFormulario(HttpServletRequest request,HttpServletResponse response)
+	/*protected void mostrarFormulario(HttpServletRequest request,HttpServletResponse response)
 			throws ServletException, IOException {
 		request.getRequestDispatcher("usuario.jsp").forward(request, response);
 		}
@@ -111,14 +112,14 @@ String path = request.getServletPath();
 		response.sendRedirect("listar");
 		}
 	
+	
+	*/
 	protected void listar(HttpServletRequest request,HttpServletResponse response)
 			throws ServletException, IOException {
-				List<Usuario>users= usuarioDAO.listarTodo();
-				request.setAttribute("listaUsuarios", users);
-		request.getRequestDispatcher("listarUsuario.jsp").forward(request, response);
+				List<Votante> votante= votanteDAO.listarTodo();
+				request.setAttribute("listaVotante", votante);
+		request.getRequestDispatcher("listarVotantes.jsp").forward(request, response);
 	}
-	
-	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
