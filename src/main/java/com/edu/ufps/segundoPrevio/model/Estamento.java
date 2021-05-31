@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 public class Estamento implements Serializable {
 
+	
 	private int id;
 	private Eleccion eleccion;
 	private String descripcion;
@@ -20,5 +21,9 @@ public class Estamento implements Serializable {
 		this.descripcion=descripcion;
 		this.id=id;
 		this.eleccion=new Eleccion(idEleccion,nombreEleccion);
+	}
+	
+	public Estamento(int id) {
+		this.id=id;
 	}
 }

@@ -4,7 +4,11 @@ import java.io.IOException;
 import java.util.List;
 
 import com.edu.ufps.segundoPrevio.daoo.factory.IDAOFactory;
+import com.edu.ufps.segundoPrevio.idao.IEstamentoDAO;
+import com.edu.ufps.segundoPrevio.idao.ITipoDocumentoDAO;
 import com.edu.ufps.segundoPrevio.idao.IVotanteDAO;
+import com.edu.ufps.segundoPrevio.model.Estamento;
+import com.edu.ufps.segundoPrevio.model.TipoDocumento;
 import com.edu.ufps.segundoPrevio.model.Votante;
 
 import jakarta.servlet.ServletConfig;
@@ -29,11 +33,16 @@ public class VotanteC extends HttpServlet {
     }
 
     IVotanteDAO votanteDAO;
+    IEstamentoDAO estamentoDAO;
+    ITipoDocumentoDAO tipoDocumentoDAO;
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		votanteDAO = IDAOFactory.getFactory("postgresql").getVotanteDAO();
+		estamentoDAO = IDAOFactory.getFactory("postgresql").getEstamentoDAO();
+		tipoDocumentoDAO=IDAOFactory.getFactory("postgresql").getTipoDocumentoDAO();
+		
 	}
 
 	/**
@@ -44,16 +53,16 @@ String path = request.getServletPath();
 		
 		switch (path) {
 		case "/nuevo":
-			//mostrarFormulario(request, response);
+			mostrarFormulario(request, response);
 			break;
 		case "/insertar":
-			//insertar(request, response);
+			insertar(request, response);
 			break;
 		case "/borrar":
 			//eliminar(request,response);
 			break;
 		case "/edicion":
-			//mostrarFormularioEdicion(request, response);
+			mostrarFormularioEdicion(request, response);
 			break;
 		case "/editar":
 			//editar(request,response);
@@ -67,32 +76,47 @@ String path = request.getServletPath();
 			break;
 		}
 	}
+	
+	protected void mostrarFormulario(HttpServletRequest request,HttpServletResponse response)
+			throws ServletException, IOException {
+		List<Estamento>estamentos=estamentoDAO.listarTodo();
+		List<TipoDocumento>tipos=tipoDocumentoDAO.listarTodo();
+		request.setAttribute("estamentos", estamentos);
+		request.setAttribute("tipos", tipos);
+		request.getRequestDispatcher("Votantes.jsp").forward(request, response);
+		
+		}
+	
+	protected void mostrarFormularioEdicion(HttpServletRequest request,HttpServletResponse response)
+			throws ServletException, IOException {
+		Votante votante = new Votante(Integer.parseInt(request.getParameter("id")));
+		Votante usuarioActual = votanteDAO.listarVotante(votante);
+		
+		request.setAttribute("user", usuarioActual);
+		request.getRequestDispatcher("Votantes.jsp").forward(request, response);
+		}
+	
 
+
+	protected void insertar(HttpServletRequest request,HttpServletResponse response)
+			throws ServletException, IOException {
+		String nombre = request.getParameter("nombre");
+		String email = request.getParameter("email");
+		String documento = request.getParameter("documento");
+		int idTipo= Integer.parseInt(request.getParameter("tipo"));
+		int idEleccion= Integer.parseInt(request.getParameter("eleccion"));
+		Votante votante = new Votante(nombre,email,documento,idTipo,idEleccion);
+		votanteDAO.insertar(votante);
+		response.sendRedirect("listar");
+		}
+	
 	/*protected void mostrarFormulario(HttpServletRequest request,HttpServletResponse response)
 			throws ServletException, IOException {
 		request.getRequestDispatcher("usuario.jsp").forward(request, response);
 		}
 	
-	protected void mostrarFormularioEdicion(HttpServletRequest request,HttpServletResponse response)
-			throws ServletException, IOException {
-		Usuario usuarioDTO = new Usuario(Integer.parseInt(request.getParameter("id")));
-		Usuario usuarioActual = usuarioDAO.usuarioActual(usuarioDTO);
-		
-		request.setAttribute("user", usuarioActual);
-		request.getRequestDispatcher("usuario.jsp").forward(request, response);
-		}
 	
-	protected void insertar(HttpServletRequest request,HttpServletResponse response)
-			throws ServletException, IOException {
-		String nombre = request.getParameter("nombre");
-		String email = request.getParameter("email");
-		String pais = request.getParameter("pais");
-		Usuario usuarioDTO = new Usuario(nombre, email, pais);
-		usuarioDAO.insert(usuarioDTO);
-		String mensaje = "Hola "+nombre+" eres de "+pais+" bienvenido";
-		mail.enviarEmail(email, "Bienvenida", mensaje);
-		response.sendRedirect("listar");
-		}
+	
 	
 	protected void editar(HttpServletRequest request,HttpServletResponse response)
 			throws ServletException, IOException {

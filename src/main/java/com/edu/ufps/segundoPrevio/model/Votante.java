@@ -17,6 +17,7 @@ public class Votante implements Serializable{
 	
 	
 	public Votante(int id,String nombre,String email, String documento, String descripcionDocumento, String nombreEleccion, String fechaInicio,String fechaFin, String descripcionEstamento) {
+		this.id=id;
 		this.nombre=nombre;
 		this.email=email;
 		this.documento=documento;
@@ -26,5 +27,24 @@ public class Votante implements Serializable{
 		
 		
 	}
+	public Votante(int id,String nombre,String email, String documento, int idtipoDocumento,int ideleccion,int idestamento) {
+		this.id=id;
+		this.nombre=nombre;
+		this.email=email;
+		this.documento=documento;
+		this.tipoDocumento=new TipoDocumento(idtipoDocumento);
+		this.eleccion=new Eleccion(ideleccion,idestamento);
+	}
 	
+	public Votante(int id ) {
+		this.id=id;
+	}
+	
+	public Votante(String nombre,String email,String documento,int tipo,int eleccion) {
+		this.nombre=nombre;
+		this.email=email;
+		this.documento=documento;
+		this.tipoDocumento=new TipoDocumento(tipo);
+		this.eleccion=new Eleccion(eleccion);
+	}
 }

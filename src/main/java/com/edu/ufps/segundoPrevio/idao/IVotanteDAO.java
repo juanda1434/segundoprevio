@@ -9,5 +9,5 @@ public interface IVotanteDAO {
 	public List<Votante> listarTodo();
 	public void eliminar(Votante votante);
 	public void editar(Votante votante);
-	
+	public Votante listarVotante(Votante votante);
 }

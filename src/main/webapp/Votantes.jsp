@@ -43,23 +43,51 @@
                                 </c:if>
                             </h2>
                         </caption>
-
+						<c:if test="${estamentos != null}">
+						<div class="form-group"> 
+						<label for="estamentos">Estamento</label>
+						<select name="estamento" class="form-control" id="estamentos">
+                            <c:forEach var="esta" items="${estamentos }">
+                             <option value="${esta.id}">${esta.descripcion }</option>
+                            </c:forEach>
+                            </select>
+  </div>
+                        </c:if>
+                        <c:if test="${tipos != null}">
+						<div class="form-group"> 
+						<label for="estamentos">Tipo documento</label>
+						<select name="tipo" class="form-control" id="estamentos">
+                            <c:forEach var="tipo" items="${tipos }">
+                             <option value="${tipo.id}">${tipo.descripcion }</option>
+                            </c:forEach>
+                            </select>
+  </div>
+                        </c:if>
+                        
                         <c:if test="${user != null}">
                             <input type="hidden" name="id" value="<c:out value='${user.id}' />" />
                         </c:if>
-
+<fieldset class="form-group">
+                            <label>Documento</label> <input type="text" value="<c:out value='${user.documento}' />" class="form-control" name="documento" required="required">
+                        </fieldset>
                         <fieldset class="form-group">
-                            <label>User Name</label> <input type="text" value="<c:out value='${user.nombre}' />" class="form-control" name="nombre" required="required">
+                            <label>Nombre</label> <input type="text" value="<c:out value='${user.nombre}' />" class="form-control" name="nombre" required="required">
                         </fieldset>
 
                         <fieldset class="form-group">
-                            <label>User Email</label> <input type="text" value="<c:out value='${user.email}' />" class="form-control" name="email">
+                            <label>Email</label> <input type="text" value="<c:out value='${user.email}' />" class="form-control" name="email">
                         </fieldset>
 
-                        <fieldset class="form-group">
-                            <label>User Country</label> <input type="text" value="<c:out value='${user.pais}' />" class="form-control" name="pais">
-                        </fieldset>
-
+<c:if test="${estamentos != null}">
+						<div class="form-group"> 
+						<label for="estamentos">Estamento</label>
+						<select name="eleccion" class="form-control" id="estamentos">
+                            <c:forEach var="esta" items="${estamentos }">
+                             <option value="${esta.eleccion.id}">${esta.eleccion.nombre }</option>
+                            </c:forEach>
+                            </select>
+  </div>
+                        </c:if>
                         <button type="submit" class="btn btn-success">Save</button>
                         </form>
                     </div>

@@ -21,6 +21,7 @@ public class VotanteDAOPostgreSQL implements IVotanteDAO{
 	
 	public static final String DELETE_VOTO = "DELETE FROM voto where votante=?";
 	
+	public static final String LIST_VOTANTE = "SELECT v.id,v.nombre,v.email,v.documento,v.tipodocumento,e.id,v.eleccion FROM votante v inner join estamento e on e.eleccion = v.eleccion where v.id=?";
 	
 	private ConexionPostgreSQL conexion; 
 	
@@ -31,6 +32,18 @@ public class VotanteDAOPostgreSQL implements IVotanteDAO{
 	@Override
 	public void insertar(Votante votante) {
 		
+		try {
+			PreparedStatement prStm= this.conexion.getGestor().prepareStatement(INSERT_VOTANTE);
+			prStm.setString(1, votante.getNombre());
+			prStm.setString(2, votante.getEmail());
+			prStm.setString(3, votante.getDocumento());
+			prStm.setInt(4, votante.getTipoDocumento().getId());
+			prStm.setInt(5, votante.getEleccion().getId());
+			prStm.execute();
+			System.out.println(prStm.getMaxRows());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -63,6 +76,23 @@ public class VotanteDAOPostgreSQL implements IVotanteDAO{
 	@Override
 	public void editar(Votante votante) {
 		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public Votante listarVotante(Votante votante) {
+Votante v  = null;
+		try {
+			PreparedStatement prStm= this.conexion.getGestor().prepareStatement(LIST_VOTANTE);
+			prStm.execute();
+			ResultSet rs= prStm.getResultSet();			
+			while(rs.next()) {
+				v=new Votante(rs.getInt(0),rs.getString(2),rs.getString(3),rs.getString(4),rs.getInt(5),rs.getInt(6),rs.getInt(7));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return v;
+		
 		
 	}
 

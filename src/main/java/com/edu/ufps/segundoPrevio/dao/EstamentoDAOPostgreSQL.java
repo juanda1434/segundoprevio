@@ -13,7 +13,7 @@ import com.edu.ufps.segundoPrevio.util.ConexionPostgreSQL;
 
 public class EstamentoDAOPostgreSQL implements IEstamentoDAO{
 
-	public static final String LISTAR_ALL= "SELECT e.id,e.descripcion,el.id,el.nombre from estamento inner join eleccion el on el.id=e.eleccion";
+	public static final String LISTAR_ALL= "SELECT e.id,e.descripcion,el.id,el.nombre from estamento e inner join eleccion el on el.id=e.eleccion";
 	
 	private ConexionPostgreSQL conexion;
 	public EstamentoDAOPostgreSQL() {
@@ -24,7 +24,6 @@ public class EstamentoDAOPostgreSQL implements IEstamentoDAO{
 
 	@Override
 	public List<Estamento> listarTodo() {
-
 
 		List<Estamento>estamentos=new ArrayList<>();
 		try {
@@ -37,7 +36,7 @@ public class EstamentoDAOPostgreSQL implements IEstamentoDAO{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println(estamentos.size());
+		System.out.println(estamentos.size() );
 		return estamentos;
 	}
 }

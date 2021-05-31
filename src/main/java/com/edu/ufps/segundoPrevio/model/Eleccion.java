@@ -32,4 +32,14 @@ public class Eleccion implements Serializable{
 		this.id=id;
 		this.nombre=nombre;
 	}
+	
+	public Eleccion(int id,int idestamento) {
+		this.id=id;
+		this.estamentos=new ArrayList<>();
+		this.estamentos.add(new Estamento(idestamento));
+	}
+	
+	public Eleccion(int id) {
+		this.id=id;
+	}
 }
